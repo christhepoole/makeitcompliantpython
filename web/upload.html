@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?">
+    <link rel="stylesheet" href="uploadpage.css">
+    <title>Make it Compliant</title>
+</head>
+
+<script type="text/javascript" src="/eel.js"></script>
+<script type="text/javascript" src="/uploadpage.js"></script>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="home.html" class="logo">Make it Compliant</a>
+        <a href="upload.html" class="upload">Upload Here</a>
+    </div>
+
+    <form class="nosubmit">
+        <input class="nosubmit" type="search" placeholder="Search...">
+    </form>
+
+    <label class = "browseAndUpload">
+        <input type="file" name="file" id="file"><br>
+        <button onclick="doUpload(event)" name="submit">Upload File</button>
+    </label>
+
+    <div id="uploadedFile"></div>
+
+    <button type="button" className="compare-button-2" onclick="classifyJS()">
+        CLASSIFY FILE
+    </button>
+    <br/>
+    <h2>Comparison:</h2>
+    
+    <div id="comparisonResults"></div>
+
+    <canvas id="canvas1"  width="600" height="300"></canvas>
+
+    <script src="drawScript.js"></script>
+
+</body>
+</html> 

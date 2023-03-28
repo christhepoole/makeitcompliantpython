@@ -1,0 +1,44 @@
+/*Upload Button*/
+.fileupload{
+  border: none;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.upload-button{
+  height: 2.5rem;
+  border-radius: .5rem;
+  border: none;
+  background-color: rgb(146, 146, 146);
+  color: black;
+  width: 5rem;
+}
+.upload-button:hover{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+/*Input File*/
+/* .input-file{
+  position: absolute;
+  right: 50rem;
+} */
+/*Compare button*/
+.compare-button{
+  position: absolute;
+  right: 64.5rem;
+  height: 2.5rem;
+  border-radius: .5rem;
+  border: none;
+  background-color: rgb(146, 146, 146);
+  color: black;
+  width: 5rem;
+  cursor: pointer;
+}
+.compare-button:hover{
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
