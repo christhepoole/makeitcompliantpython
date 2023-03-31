@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Similarity page with basic input and output</title>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript">
+      function sendInput() {
+        var input = document.getElementById("input").value;
+        eel.process_input(input)(displayResult);
+      }
+
+      function displayResult(result) {
+        document.getElementById("result").innerHTML = result;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Eel Python Example</h1>
+    <p>Enter some input:</p>
+    <input type="text" id="input" name="input">
+    <button onclick="sendInput()">Submit</button>
+    <br><br>
+    <p>Result:</p>
+    <p id="result"></p>
+  </body>
+</html>
