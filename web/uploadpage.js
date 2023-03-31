@@ -30,11 +30,17 @@ function doUpload(event) {
 }
 
 eel.expose(classifyJS)
-async function classifyJS(event) {
+async function classifyJS() {
     let res = await eel.classify(state.fileArray[0])();
 
     document.getElementById("comparisonResults").innerHTML = res.map((value) => {
         return `${value.name} <br> ${value.value}`
     });    
+}
+
+async function compareJS() {
+    let res = await eel.compare(state.fileArray)();
+        document.getElementById("comparisonResults").innerHTML
+            = res.map((value) => {return `${value.name} <br> ${value.value}`});
 }
 

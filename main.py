@@ -13,7 +13,9 @@ def compare(sent_files):
     return_values = []
     files = sent_files
     compare_value = str(100*(FileComparison.cosine_similarity(files[0]['data'], files[1]['data'])))
-    return_values.append(Compare("", compare_value).__dict__)
+    compare_value_2 = str(100*(FileComparison.jaccard_similarity(files[0]['data'], files[1]['data'])))
+    return_values.append(Compare("Cosine Similarity: ", compare_value).__dict__)
+    return_values.append(Compare("Jaccard Similarity: ", compare_value_2).__dict__)
     return return_values
 
 @eel.expose
@@ -33,4 +35,4 @@ def classify(sent_file):
     return_values.append(last_compare.__dict__)
     return return_values
 
-eel.start("upload.html")
+eel.start("upload.html", mode="None")
