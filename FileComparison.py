@@ -1,6 +1,8 @@
 import numpy as np
 
 import nltk
+import os
+
 nltk.download('punkt')
 from nltk.corpus import stopwords
 import string
@@ -30,3 +32,21 @@ def file_to_string(filename):
         text += i + " "
     return text
 
+
+def classify(file_string):
+    last_compare_value = -1
+    with os.scandir("license_templates") as template_files:
+        for template_file in template_files:
+            with open(template_file, "r", encoding="utf-8") as file:
+                template_data = file.read()
+                compare_value = cosine_similarity(file_string, template_data)
+                if compare_value > last_compare_value:
+                    last_compare_value = compare_value
+                    last_compare = template_file.name
+
+    # Prolog Linking
+    with open("allLicenseFacts.pl", "w") as prologFacts:
+        with open("allLicenseFactsBaseCopy.pl", "r") as prologFactsReadOnly:
+            prologFacts.write(prologFactsReadOnly.read() + "license_a(\"" + last_compare.replace(".txt", "") + "\").")
+
+    return last_compare.replace(".txt", "")
