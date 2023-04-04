@@ -509,7 +509,7 @@ conditions_before_modification(X, document_changes) :- has_condition(X, document
 
 
 limitation(X, liability) :- limitation_liability(X).
-limitation(X, patent_use) :- limitation_patent_use(X).
+limitation(X, l_patent_use) :- limitation_patent_use(X).
 limitation(X, warranty) :- limitation_warranty(X).
 limitation(X, trademark_use) :- limitation_trademark_use(X).
 

@@ -60,18 +60,71 @@ class ConditionsPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
         headerFont = wx.Font(wx.FontInfo(15).Bold().Underlined())
+        font = wx.Font(wx.FontInfo(10))
         files = self.GetParent().getClassifiedFiles()
+        permissions = FileComparison.get_permissions()
+        d_conditions = FileComparison.get_conditions_for_distribution()
+        m_conditions = FileComparison.get_conditions_for_modification()
+        limitations = FileComparison.get_limitations()
 
         file_a_box = wx.BoxSizer(wx.VERTICAL)
 
         # File A Permission Header
         file_a_permissions_header = wx.StaticText(self, -1, "With The " + files[0] + " You Can", style=wx.ALIGN_CENTER)
         file_a_permissions_header.SetFont(headerFont)
-        file_a_permissions_header.Wrap(280)
+        file_a_permissions_header.Wrap(260)
         file_a_box.Add(file_a_permissions_header, 0)
 
         # File A Permission Header Line (Doesn't really work)
         #file_a_box.Add(wx.StaticLine(self), 0)
+
+        file_a_permissions_box = wx.BoxSizer(wx.VERTICAL)
+        for permission in permissions[0]:
+            file_a_permission = wx.StaticText(self, -1, "-" + FileComparison.define(permission))
+            file_a_permission.SetFont(font)
+            file_a_permission.Wrap(260)
+            file_a_permissions_box.Add(file_a_permission)
+
+        file_a_box.Add(file_a_permissions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_a_d_conditions_box = wx.BoxSizer(wx.VERTICAL)
+        if d_conditions[0] is not False:
+            file_a_d_conditions_header = wx.StaticText(self, -1, "Conditions For Distribution", style=wx.ALIGN_CENTER)
+            file_a_d_conditions_header.SetFont(headerFont)
+            file_a_d_conditions_header.Wrap(260)
+            file_a_box.Add(file_a_d_conditions_header)
+            for condition in d_conditions[0]:
+                file_a_condition = wx.StaticText(self, -1, "-" + FileComparison.define(condition))
+                file_a_condition.SetFont(font)
+                file_a_condition.Wrap(260)
+                file_a_d_conditions_box.Add(file_a_condition)
+        file_a_box.Add(file_a_d_conditions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_a_m_conditions_box = wx.BoxSizer(wx.VERTICAL)
+        if m_conditions[0] is not False:
+            file_a_m_conditions_header = wx.StaticText(self, -1, "Conditions For Modification", style=wx.ALIGN_CENTER)
+            file_a_m_conditions_header.SetFont(headerFont)
+            file_a_m_conditions_header.Wrap(260)
+            file_a_box.Add(file_a_m_conditions_header)
+            for condition in m_conditions[0]:
+                file_a_condition = wx.StaticText(self, -1, "-" + FileComparison.define(condition))
+                file_a_condition.SetFont(font)
+                file_a_condition.Wrap(260)
+                file_a_m_conditions_box.Add(file_a_condition)
+        file_a_box.Add(file_a_m_conditions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_a_limitations_box = wx.BoxSizer(wx.VERTICAL)
+        if limitations[0] is not False:
+            file_a_limitations_header = wx.StaticText(self, -1, "Limitations", style=wx.ALIGN_CENTER)
+            file_a_limitations_header.SetFont(headerFont)
+            file_a_limitations_header.Wrap(260)
+            file_a_box.Add(file_a_limitations_header)
+            for limitation in limitations[0]:
+                file_a_limitation = wx.StaticText(self, -1, "-" + FileComparison.define(limitation))
+                file_a_limitation.SetFont(font)
+                file_a_limitation.Wrap(260)
+                file_a_limitations_box.Add(file_a_limitation)
+        file_a_box.Add(file_a_limitations_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
 
         file_b_box = wx.BoxSizer(wx.VERTICAL)
 
@@ -83,6 +136,54 @@ class ConditionsPanel(wx.Panel):
 
         # File B Permission Header Line (Doesn't really work)
         #file_b_box.Add(wx.StaticLine(self), 0)
+
+        file_b_permissions_box = wx.BoxSizer(wx.VERTICAL)
+        for permission in permissions[1]:
+            file_b_permission = wx.StaticText(self, -1, "-" + FileComparison.define(permission))
+            file_b_permission.SetFont(font)
+            file_b_permission.Wrap(260)
+            file_b_permissions_box.Add(file_b_permission)
+
+        file_b_box.Add(file_b_permissions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_b_d_conditions_box = wx.BoxSizer(wx.VERTICAL)
+        if d_conditions[1] is not False:
+            file_b_d_conditions_header = wx.StaticText(self, -1, "Conditions For Distribution", style=wx.ALIGN_CENTER)
+            file_b_d_conditions_header.SetFont(headerFont)
+            file_b_d_conditions_header.Wrap(260)
+            file_b_box.Add(file_b_d_conditions_header)
+            for condition in d_conditions[1]:
+                file_b_condition = wx.StaticText(self, -1, "-" + FileComparison.define(condition))
+                file_b_condition.SetFont(font)
+                file_b_condition.Wrap(260)
+                file_b_d_conditions_box.Add(file_b_condition)
+        file_b_box.Add(file_b_d_conditions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_b_m_conditions_box = wx.BoxSizer(wx.VERTICAL)
+        if m_conditions[1] is not False:
+            file_b_m_conditions_header = wx.StaticText(self, -1, "Conditions For Modification", style=wx.ALIGN_CENTER)
+            file_b_m_conditions_header.SetFont(headerFont)
+            file_b_m_conditions_header.Wrap(260)
+            file_b_box.Add(file_b_m_conditions_header)
+            for condition in m_conditions[1]:
+                file_b_condition = wx.StaticText(self, -1, "-" + FileComparison.define(condition))
+                file_b_condition.SetFont(font)
+                file_b_condition.Wrap(260)
+                file_b_m_conditions_box.Add(file_b_condition)
+        file_b_box.Add(file_b_m_conditions_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
+
+        file_b_limitations_box = wx.BoxSizer(wx.VERTICAL)
+        if limitations[1] is not False:
+            file_b_limitations_header = wx.StaticText(self, -1, "Limitations", style=wx.ALIGN_CENTER)
+            file_b_limitations_header.SetFont(headerFont)
+            file_b_limitations_header.Wrap(260)
+            file_b_box.Add(file_b_limitations_header)
+            for limitation in limitations[1]:
+                file_b_limitation = wx.StaticText(self, -1, "-" + FileComparison.define(limitation))
+                file_b_limitation.SetFont(font)
+                file_b_limitation.Wrap(260)
+                file_b_limitations_box.Add(file_b_limitation)
+        file_b_box.Add(file_b_limitations_box, 0, flag=wx.TOP | wx.BOTTOM, border=20)
 
         file_box = wx.BoxSizer(wx.HORIZONTAL)
         file_box.Add(file_a_box, 0, flag=wx.LEFT | wx.RIGHT, border=20)
@@ -149,9 +250,8 @@ class MyFrame(wx.Frame):
         self.Layout()
 
     def getClassifiedFiles(self):
-        classifiedFileA = FileComparison.classify(self.fileA)
-        classifiedFileB = FileComparison.classify(self.fileB)
-        return [classifiedFileA, classifiedFileB]
+        classifiedFiles = FileComparison.classify(self.fileA, self.fileB)
+        return classifiedFiles
 
 
 if __name__ == '__main__':
