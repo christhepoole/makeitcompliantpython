@@ -1,5 +1,7 @@
 import wx
 
+import FileComparison
+
 
 class UploadPanel(wx.Panel):
     def __init__(self, parent):
@@ -57,11 +59,46 @@ class SimilarityPanel(wx.Panel):
 class ConditionsPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
+        headerFont = wx.Font(wx.FontInfo(15).Bold().Underlined())
+        files = self.GetParent().getClassifiedFiles()
+
+        file_a_box = wx.BoxSizer(wx.VERTICAL)
+
+        # File A Permission Header
+        file_a_permissions_header = wx.StaticText(self, -1, "With The " + files[0] + " You Can", style=wx.ALIGN_CENTER)
+        file_a_permissions_header.SetFont(headerFont)
+        file_a_permissions_header.Wrap(280)
+        file_a_box.Add(file_a_permissions_header, 0)
+
+        # File A Permission Header Line (Doesn't really work)
+        #file_a_box.Add(wx.StaticLine(self), 0)
+
+        file_b_box = wx.BoxSizer(wx.VERTICAL)
+
+        # File B Permission Header
+        file_b_permissions_header = wx.StaticText(self, -1, "With The " + files[1] + " You Can", style=wx.ALIGN_CENTER)
+        file_b_permissions_header.SetFont(headerFont)
+        file_b_permissions_header.Wrap(260)
+        file_b_box.Add(file_b_permissions_header, 0)
+
+        # File B Permission Header Line (Doesn't really work)
+        #file_b_box.Add(wx.StaticLine(self), 0)
+
+        file_box = wx.BoxSizer(wx.HORIZONTAL)
+        file_box.Add(file_a_box, 0, flag=wx.LEFT | wx.RIGHT, border=20)
+        file_box.Add(file_b_box, 0, flag=wx.LEFT | wx.RIGHT, border=20)
+        self.SetSizer(file_box)
+        self.Layout()
 
 
 class MyFrame(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, -1, 'File Import and Output', size=(500, 300))
+        wx.Frame.__init__(self, None, -1, 'File Import and Output', size=(600, 550))
+
+        # Tempory way to deal with files
+        self.fileA = FileComparison.file_to_string("license_templates/Apache License 2.0.txt")
+        self.fileB = FileComparison.file_to_string("license_templates/MIT License.txt")
+
         self.panel = UploadPanel(self)
         self.similarity_panel = SimilarityPanel(self)
         self.conditions_panel = ConditionsPanel(self)
@@ -73,18 +110,19 @@ class MyFrame(wx.Frame):
         self.panelSizer.Add(self.conditions_panel, 1, wx.EXPAND)
         self.SetSizer(self.panelSizer)
 
-        #TODO Come up with a better way of doing switching panels. Maybe via a button instead of a menu
+
+        # TODO Come up with a better way of doing switching panels. Maybe via a button instead of a menu
         menuBar = wx.MenuBar()
         view = wx.Menu()
         uploadPageMenuItem = view.Append(wx.ID_ANY, "View Upload Page", "View the Upload Page")
-        similarityPageMenuItem = view.Append(wx.ID_ANY, "View Similarity Page", "View the similarity between the uploaded files")
+        similarityPageMenuItem = view.Append(wx.ID_ANY, "View Similarity Page",
+                                             "View the similarity between the uploaded files")
         conditionsPageMenuItem = view.Append(wx.ID_ANY, "View Conditions Page", "View the conditions of each license")
         menuBar.Append(view, "&View")
         self.SetMenuBar(menuBar)
         self.Bind(wx.EVT_MENU, self.viewUploadPanel, uploadPageMenuItem)
         self.Bind(wx.EVT_MENU, self.viewSimilarityPanel, similarityPageMenuItem)
         self.Bind(wx.EVT_MENU, self.viewConditionsPanel, conditionsPageMenuItem)
-
 
     def viewSimilarityPanel(self, event):
         if self.panel.IsShown():
@@ -93,6 +131,7 @@ class MyFrame(wx.Frame):
             self.conditions_panel.Hide()
         self.similarity_panel.Show(True)
         self.Layout()
+
     def viewConditionsPanel(self, event):
         if self.panel.IsShown():
             self.panel.Hide()
@@ -100,6 +139,7 @@ class MyFrame(wx.Frame):
             self.similarity_panel.Hide()
         self.conditions_panel.Show(True)
         self.Layout()
+
     def viewUploadPanel(self, event):
         if self.similarity_panel.IsShown():
             self.similarity_panel.Hide()
@@ -107,6 +147,11 @@ class MyFrame(wx.Frame):
             self.conditions_panel.Hide()
         self.panel.Show(True)
         self.Layout()
+
+    def getClassifiedFiles(self):
+        classifiedFileA = FileComparison.classify(self.fileA)
+        classifiedFileB = FileComparison.classify(self.fileB)
+        return [classifiedFileA, classifiedFileB]
 
 
 if __name__ == '__main__':
