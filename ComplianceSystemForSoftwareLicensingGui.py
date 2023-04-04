@@ -73,6 +73,41 @@ class MyFrame(wx.Frame):
         self.panelSizer.Add(self.conditions_panel, 1, wx.EXPAND)
         self.SetSizer(self.panelSizer)
 
+        #TODO Come up with a better way of doing switching panels. Maybe via a button instead of a menu
+        menuBar = wx.MenuBar()
+        view = wx.Menu()
+        uploadPageMenuItem = view.Append(wx.ID_ANY, "View Upload Page", "View the Upload Page")
+        similarityPageMenuItem = view.Append(wx.ID_ANY, "View Similarity Page", "View the similarity between the uploaded files")
+        conditionsPageMenuItem = view.Append(wx.ID_ANY, "View Conditions Page", "View the conditions of each license")
+        menuBar.Append(view, "&View")
+        self.SetMenuBar(menuBar)
+        self.Bind(wx.EVT_MENU, self.viewUploadPanel, uploadPageMenuItem)
+        self.Bind(wx.EVT_MENU, self.viewSimilarityPanel, similarityPageMenuItem)
+        self.Bind(wx.EVT_MENU, self.viewConditionsPanel, conditionsPageMenuItem)
+
+
+    def viewSimilarityPanel(self, event):
+        if self.panel.IsShown():
+            self.panel.Hide()
+        elif self.conditions_panel.IsShown():
+            self.conditions_panel.Hide()
+        self.similarity_panel.Show(True)
+        self.Layout()
+    def viewConditionsPanel(self, event):
+        if self.panel.IsShown():
+            self.panel.Hide()
+        elif self.similarity_panel.IsShown():
+            self.similarity_panel.Hide()
+        self.conditions_panel.Show(True)
+        self.Layout()
+    def viewUploadPanel(self, event):
+        if self.similarity_panel.IsShown():
+            self.similarity_panel.Hide()
+        elif self.conditions_panel.IsShown():
+            self.conditions_panel.Hide()
+        self.panel.Show(True)
+        self.Layout()
+
 
 if __name__ == '__main__':
     app = wx.App()
