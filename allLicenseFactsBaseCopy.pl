@@ -4,10 +4,10 @@ can_use_commercially("Academic Free License v3.0").
 can_use_commercially("GNU Affero General Public License v3.0").
 can_use_commercially("Apache License 2.0").
 can_use_commercially("Artistic License 2.0").
-can_use_commercially("BSD 2-Clause \"Simplified\" License").
+can_use_commercially("BSD 2-Clause Simplified License").
 can_use_commercially("BSD 3-Clause Clear License").
-can_use_commercially("BSD 3-Clause \"New\" or \"Revised\" License").
-can_use_commercially("BSD 4-Clause \"Original\" or \"Old\" License").
+can_use_commercially("BSD 3-Clause New or Revised License").
+can_use_commercially("BSD 4-Clause Original or Old License").
 can_use_commercially("Boost Software License 1.0").
 can_use_commercially("Creative Commons Attribution 4.0 International").
 can_use_commercially("Creative Commons Attribution Share Alike 4.0 International").
@@ -42,7 +42,7 @@ can_use_commercially("PostgreSQL License").
 can_use_commercially("The Unlicense").
 can_use_commercially("Universal Permissive License v1.0").
 can_use_commercially("Vim License").
-can_use_commercially("Do What The F*ck You Want To Public License").
+can_use_commercially("Do What The Fck You Want To Public License").
 can_use_commercially("zlib License").
 
 %Distribution
@@ -51,10 +51,10 @@ can_distribute("Academic Free License v3.0") :- condition(copyright_license_with
 can_distribute("GNU Affero General Public License v3.0") :- condition(disclose_source_code), condition(copyright_license_with_source_code), condition(copyright_license_with_binaries), condition(network_use_is_distribution).
 can_distribute("Apache License 2.0") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
 can_distribute("Artistic License 2.0") :- condition(copyright_license_with_source_code),condition(copyright_license_with_binaries).
-can_distribute("BSD 2-Clause \"Simplified\" License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
+can_distribute("BSD 2-Clause Simplified License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
 can_distribute("BSD 3-Clause Clear License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
-can_distribute("BSD 3-Clause \"New\" or \"Revised\" License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
-can_distribute("BSD 4-Clause \"Original\" or \"Old\" License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
+can_distribute("BSD 3-Clause New or Revised License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
+can_distribute("BSD 4-Clause Original or Old License") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
 can_distribute("Boost Software License 1.0") :- condition(copyright_license_with_source_code).
 can_distribute("Creative Commons Attribution 4.0 International") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
 can_distribute("Creative Commons Attribution Share Alike 4.0 International") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
@@ -89,7 +89,7 @@ can_distribute("PostgreSQL License") :- condition(copyright_license_with_source_
 can_distribute("The Unlicense").
 can_distribute("Universal Permissive License v1.0") :- condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
 can_distribute("Vim License") :- condition(disclose_source_code), condition(copyright_license_with_source_code), condition(copyright_license_with_binaries).
-can_distribute("Do What The F*ck You Want To Public License").
+can_distribute("Do What The Fck You Want To Public License").
 can_distribute("zlib License") :- condition(copyright_license_with_source_code).
 
 %Modification
@@ -98,10 +98,10 @@ can_modify("Academic Free License v3.0") :- condition(document_changes).
 can_modify("GNU Affero General Public License v3.0") :- condition(same_license), condition(document_changes).
 can_modify("Apache License 2.0") :- condition(document_changes).
 can_modify("Artistic License 2.0") :- condition(document_changes).
-can_modify("BSD 2-Clause \"Simplified\" License").
+can_modify("BSD 2-Clause Simplified License").
 can_modify("BSD 3-Clause Clear License").
-can_modify("BSD 3-Clause \"New\" or \"Revised\" License").
-can_modify("BSD 4-Clause \"Original\" or \"Old\" License").
+can_modify("BSD 3-Clause New or Revised License").
+can_modify("BSD 4-Clause Original or Old License").
 can_modify("Boost Software License 1.0").
 can_modify("Creative Commons Attribution 4.0 International") :- condition(document_changes).
 can_modify("Creative Commons Attribution Share Alike 4.0 International") :- condition(same_license), condition(document_changes).
@@ -136,7 +136,7 @@ can_modify("PostgreSQL License").
 can_modify("The Unlicense").
 can_modify("Universal Permissive License v1.0").
 can_modify("Vim License") :- condition(same_license), condition(document_changes).
-can_modify("Do What The F*ck You Want To Public License").
+can_modify("Do What The Fck You Want To Public License").
 can_modify("zlib License") :- condition(document_changes).
 
 %Patent Use
@@ -168,10 +168,10 @@ can_use_privately("Academic Free License v3.0").
 can_use_privately("GNU Affero General Public License v3.0").
 can_use_privately("Apache License 2.0").
 can_use_privately("Artistic License 2.0").
-can_use_privately("BSD 2-Clause \"Simplified\" License").
+can_use_privately("BSD 2-Clause Simplified License").
 can_use_privately("BSD 3-Clause Clear License").
-can_use_privately("BSD 3-Clause \"New\" or \"Revised\" License").
-can_use_privately("BSD 4-Clause \"Original\" or \"Old\" License").
+can_use_privately("BSD 3-Clause New or Revised License").
+can_use_privately("BSD 4-Clause Original or Old License").
 can_use_privately("Boost Software License 1.0").
 can_use_privately("Creative Commons Attribution 4.0 International").
 can_use_privately("Creative Commons Attribution Share Alike 4.0 International").
@@ -206,7 +206,7 @@ can_use_privately("PostgreSQL License").
 can_use_privately("The Unlicense").
 can_use_privately("Universal Permissive License v1.0").
 can_use_privately("Vim License").
-can_use_privately("Do What The F*ck You Want To Public License").
+can_use_privately("Do What The Fck You Want To Public License").
 can_use_privately("zlib License").
 
 %Patent Use Limitation
@@ -222,10 +222,10 @@ limitation_liability("Academic Free License v3.0").
 limitation_liability("GNU Affero General Public License v3.0").
 limitation_liability("Apache License 2.0").
 limitation_liability("Artistic License 2.0").
-limitation_liability("BSD 2-Clause \"Simplified\" License").
+limitation_liability("BSD 2-Clause Simplified License").
 limitation_liability("BSD 3-Clause Clear License").
-limitation_liability("BSD 3-Clause \"New\" or \"Revised\" License").
-limitation_liability("BSD 4-Clause \"Original\" or \"Old\" License").
+limitation_liability("BSD 3-Clause New or Revised License").
+limitation_liability("BSD 4-Clause Original or Old License").
 limitation_liability("Boost Software License 1.0").
 limitation_liability("Creative Commons Attribution 4.0 International").
 limitation_liability("Creative Commons Attribution Share Alike 4.0 International").
@@ -282,10 +282,10 @@ limitation_warranty("Academic Free License v3.0").
 limitation_warranty("GNU Affero General Public License v3.0").
 limitation_warranty("Apache License 2.0").
 limitation_warranty("Artistic License 2.0").
-limitation_warranty("BSD 2-Clause \"Simplified\" License").
+limitation_warranty("BSD 2-Clause Simplified License").
 limitation_warranty("BSD 3-Clause Clear License").
-limitation_warranty("BSD 3-Clause \"New\" or \"Revised\" License").
-limitation_warranty("BSD 4-Clause \"Original\" or \"Old\" License").
+limitation_warranty("BSD 3-Clause New or Revised License").
+limitation_warranty("BSD 4-Clause Original or Old License").
 limitation_warranty("Boost Software License 1.0").
 limitation_warranty("Creative Commons Attribution 4.0 International").
 limitation_warranty("Creative Commons Attribution Share Alike 4.0 International").
@@ -347,10 +347,10 @@ has_condition("Academic Free License v3.0", copyright_license_with_source_code).
 has_condition("GNU Affero General Public License v3.0", copyright_license_with_source_code).
 has_condition("Apache License 2.0", copyright_license_with_source_code).
 has_condition("Artistic License 2.0", copyright_license_with_source_code).
-has_condition("BSD 2-Clause \"Simplified\" License", copyright_license_with_source_code).
+has_condition("BSD 2-Clause Simplified License", copyright_license_with_source_code).
 has_condition("BSD 3-Clause Clear License", copyright_license_with_source_code).
-has_condition("BSD 3-Clause \"New\" or \"Revised\" License", copyright_license_with_source_code).
-has_condition("BSD 4-Clause \"Original\" or \"Old\" License", copyright_license_with_source_code).
+has_condition("BSD 3-Clause New or Revised License", copyright_license_with_source_code).
+has_condition("BSD 4-Clause Original or Old License", copyright_license_with_source_code).
 has_condition("Boost Software License 1.0", copyright_license_with_source_code).
 has_condition("Creative Commons Attribution 4.0 International", copyright_license_with_source_code).
 has_condition("Creative Commons Attribution Share Alike 4.0 International", copyright_license_with_source_code).
@@ -389,10 +389,10 @@ has_condition("Academic Free License v3.0", copyright_license_with_binaries).
 has_condition("GNU Affero General Public License v3.0", copyright_license_with_binaries).
 has_condition("Apache License 2.0", copyright_license_with_binaries).
 has_condition("Artistic License 2.0", copyright_license_with_binaries).
-has_condition("BSD 2-Clause \"Simplified\" License", copyright_license_with_binaries).
+has_condition("BSD 2-Clause Simplified License", copyright_license_with_binaries).
 has_condition("BSD 3-Clause Clear License", copyright_license_with_binaries).
-has_condition("BSD 3-Clause \"New\" or \"Revised\" License", copyright_license_with_binaries).
-has_condition("BSD 4-Clause \"Original\" or \"Old\" License", copyright_license_with_binaries).
+has_condition("BSD 3-Clause New or Revised License", copyright_license_with_binaries).
+has_condition("BSD 4-Clause Original or Old License", copyright_license_with_binaries).
 has_condition("Creative Commons Attribution 4.0 International", copyright_license_with_binaries).
 has_condition("Creative Commons Attribution Share Alike 4.0 International", copyright_license_with_binaries).
 has_condition("CeCILL Free Software License Agreement v2.1", copyright_license_with_binaries).

@@ -273,8 +273,7 @@ class MyFrame(wx.Frame):
     def getClassifiedFiles(self):
         if len(file_list) == 0:
             return False
-        print(file_list[0].value)
-        return FileComparison.classify_two_files(file_list[0].value, file_list[1].value)
+        return FileComparison.classify_two_files(file_list[0]["value"], file_list[1]["value"])
 
 
 if __name__ == '__main__':
