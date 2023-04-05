@@ -1,5 +1,3 @@
-import numpy as np
-
 import nltk
 import os
 from swiplserver import PrologMQI
@@ -54,13 +52,14 @@ def classify(file_string):
     return last_compare.replace(".txt", "")
 
 
-def classify(file_a_string, file_b_string):
+def classify_two_files(file_a_string, file_b_string):
     last_compare_value = -1
     with os.scandir("license_templates") as template_files:
         for template_file in template_files:
             with open(template_file, "r", encoding="utf-8") as file:
                 template_data = file.read()
                 compare_value = cosine_similarity(file_a_string, template_data)
+                print(template_file.name, compare_value)
                 if compare_value > last_compare_value:
                     last_compare_value = compare_value
                     last_compare_a = template_file.name
