@@ -3,11 +3,6 @@ import FileComparison
 
 file_list = []
 
-class Text_File:
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
-
 class UploadPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
@@ -37,31 +32,46 @@ class UploadPanel(wx.Panel):
     def on_import(self, event):
         path = self.file_path.GetValue()
         with open(path) as file:
-            text_file = Text_File(os.path.splitext(os.path.basename(path))[0], file.readlines())
+            text_file = {"name": os.path.splitext(os.path.basename(path))[0], "value": file.read()}
             file_list.append(text_file)
         file_list_names = ""
         for file in file_list:
-            file_list_names += file.name + " "
+            file_list_names += file["name"] + " "
         self.uploaded_files.SetValue(file_list_names)
 
 
 class SimilarityPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
-        self.files_to_compare = wx.TextCtrl(self, style=wx.TE_READONLY)
-        self.comparison_results = wx.TextCtrl(self, style=wx.TE_READONLY)
+        self.files_to_compare = wx.TextCtrl(self, size=(400, -1), style=wx.TE_READONLY)
+        self.comparison_results = wx.TextCtrl(self, size=(400, -1), style=wx.TE_READONLY)
 
         self.files_to_compare.SetValue("Uploaded files: ")
         for file in file_list:
-            self.files_to_compare.AppendText(file.name + " ")
+            self.files_to_compare.AppendText(file["name"] + " ")
+
+        cosine_sim_btn = wx.Button(self, -1, "Cosine Sim")
+        jaccard_sim_btn = wx.Button(self, -1, "Jaccard Sim")
+        cosine_sim_btn.Bind(wx.EVT_BUTTON, self.cosine_similarity)
+        jaccard_sim_btn.Bind(wx.EVT_BUTTON, self.jaccard_similarity)
+
+        btn_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        btn_sizer.Add(cosine_sim_btn, 0, 0, 0)
+        btn_sizer.Add(jaccard_sim_btn, 0, 0, 0)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.files_to_compare, 0, 0, 0)
+        sizer.Add(btn_sizer, 0, 0, 0)
+        sizer.Add(self.comparison_results, 0, 0, 0)
         self.SetSizer(sizer)
     
-    def cosine_similarity():
+    def cosine_similarity(self, event):
         compare_value = str(100*(FileComparison.cosine_similarity(file_list[0]['value'], file_list[1]['value'])))
-        return compare_value
+        self.comparison_results.SetValue("Cosine Similarity: " + compare_value + " %")
+    
+    def jaccard_similarity(self, event):
+        compare_value = str(100*(FileComparison.jaccard_similarity(file_list[0]['value'], file_list[1]['value'])))
+        self.comparison_results.SetValue("Jaccard Similarity: " + compare_value + " %")
 
 
 
