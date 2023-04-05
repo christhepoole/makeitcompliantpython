@@ -23,6 +23,13 @@ def cosine_similarity(file_a, file_b):
     return ((tfidf * tfidf.T).toarray())[0, 1]
 
 
+def jaccard_similarity(file_a, file_b):
+    set_a = set(file_a.split())
+    set_b = set(file_b.split())
+    intersection = set_a.intersection(set_b)
+    return float(len(intersection)/(len(set_a) + len(set_b) - len(intersection)))
+
+
 def file_to_string(filename):
     file = open(filename, encoding="utf8")
     file_list = file.readlines()
