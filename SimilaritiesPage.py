@@ -50,4 +50,4 @@ class MyFrame(wx.Frame):
         output_sizer.Add(wx.StaticText(panel, wx.ID_ANY, "Cosine Similarity:"), 0, wx.EXPAND | wx.ALL, 5)
         output_sizer.Add(self.cosine_output, 1, wx.EXPAND | wx.ALL, 5)
         output_sizer.Add(wx.StaticText(panel, wx.ID_ANY, "Jaccard Similarity:"), 0, wx.EXPAND | wx.ALL, 5)
-        output_sizer.Add(self.jaccard_output, 1, wx.EXPAND | wx
+        output_sizer.Add(self.jaccard_output, 1, wx.EXPAND | wx)
