@@ -1,59 +1,68 @@
-import wx
+import os, wx
+import FileComparison   
 
-import FileComparison
+file_list = []
 
+class Text_File:
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
 
 class UploadPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
-        self.file_path_text_ctrl = wx.TextCtrl(self, style=wx.TE_READONLY, size=(400, -1))
-        self.result_text_ctrl = wx.TextCtrl(self, -1, "", style=wx.TE_MULTILINE | wx.TE_READONLY, size=(-1, 150))
-        browse_button = wx.Button(self, -1, "Browse...", size=(80, -1))
-        import_button = wx.Button(self, -1, "Import", size=(80, -1))
+        self.file_path = wx.TextCtrl(self, size=(400, -1), style=wx.TE_READONLY)
+        self.uploaded_files = wx.TextCtrl(self, style=wx.TE_READONLY)
+        browse_button = wx.Button(self, -1, "Browse...")
+        import_button = wx.Button(self, -1, "Import")
 
-        font = wx.Font(10, wx.DEFAULT, wx.NORMAL, wx.BOLD)
-        file_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        file_sizer.Add(wx.StaticText(self, -1, "File path:", size=(100, -1)).SetFont(font), 0,
-                       wx.ALIGN_CENTER_VERTICAL | wx.LEFT, 5)
-        file_sizer.Add(self.file_path_text_ctrl, 1, wx.EXPAND)
-        file_sizer.Add(browse_button, 0, wx.RIGHT, 5)
-
-        result_sizer = wx.BoxSizer(wx.VERTICAL)
-        result_sizer.Add(wx.StaticText(self, -1, "Results:", size=(-1, -1)).SetFont(font), 0,
-                         wx.LEFT | wx.TOP | wx.RIGHT, 5)
-        result_sizer.Add(self.result_text_ctrl, 1, wx.EXPAND | wx.LEFT | wx.RIGHT | wx.BOTTOM, 5)
-
-        button_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        button_sizer.Add(import_button, 0, wx.RIGHT | wx.BOTTOM, 5)
+        browse_button.Bind(wx.EVT_BUTTON, self.on_browse)
+        import_button.Bind(wx.EVT_BUTTON, self.on_import)
 
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(file_sizer, 0, wx.EXPAND | wx.ALL, 5)
-        sizer.Add(wx.StaticLine(self), 0, wx.EXPAND | wx.TOP | wx.BOTTOM, 5)
-        sizer.Add(result_sizer, 0, wx.EXPAND | wx.LEFT | wx.RIGHT, 5)
-        sizer.Add(button_sizer, 0, wx.ALIGN_RIGHT | wx.ALL, 5)
-        self.SetSizer(sizer)
+        sizer.Add(self.file_path, 0, 0, 0)
+        sizer.Add(browse_button, 0, 0, 0)
+        sizer.Add(import_button, 0, 0, 0)
+        sizer.Add(self.uploaded_files, 0, wx.EXPAND, 0)
 
-        self.Bind(wx.EVT_BUTTON, self.on_browse, browse_button)
-        self.Bind(wx.EVT_BUTTON, self.on_import, import_button)
+        self.SetSizer(sizer)        
 
     def on_browse(self, event):
         dlg = wx.FileDialog(self, "Choose a file", style=wx.FD_OPEN)
         if dlg.ShowModal() == wx.ID_OK:
             path = dlg.GetPath()
-            self.file_path_text_ctrl.SetValue(path)
+            self.file_path.SetValue(path)
         dlg.Destroy()
 
     def on_import(self, event):
-        path = self.file_path_text_ctrl.GetValue()
-        with open(path, 'r') as file:
-            # Do some processing on the file
-            result = file.read()
-        self.result_text_ctrl.SetValue(result)
+        path = self.file_path.GetValue()
+        with open(path) as file:
+            text_file = Text_File(os.path.splitext(os.path.basename(path))[0], file.readlines())
+            file_list.append(text_file)
+        file_list_names = ""
+        for file in file_list:
+            file_list_names += file.name + " "
+        self.uploaded_files.SetValue(file_list_names)
 
 
 class SimilarityPanel(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent=parent)
+        self.files_to_compare = wx.TextCtrl(self, style=wx.TE_READONLY)
+        self.comparison_results = wx.TextCtrl(self, style=wx.TE_READONLY)
+
+        self.files_to_compare.SetValue("Uploaded files: ")
+        for file in file_list:
+            self.files_to_compare.AppendText(file.name + " ")
+
+        sizer = wx.BoxSizer(wx.VERTICAL)
+        sizer.Add(self.files_to_compare, 0, 0, 0)
+        self.SetSizer(sizer)
+    
+    def cosine_similarity():
+        compare_value = str(100*(FileComparison.cosine_similarity(file_list[0]['value'], file_list[1]['value'])))
+        return compare_value
+
 
 
 class ConditionsPanel(wx.Panel):
@@ -226,6 +235,8 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.viewConditionsPanel, conditionsPageMenuItem)
 
     def viewSimilarityPanel(self, event):
+        self.similarity_panel = SimilarityPanel(self)
+        self.panelSizer.Add(self.similarity_panel, 1, wx.EXPAND)
         if self.panel.IsShown():
             self.panel.Hide()
         elif self.conditions_panel.IsShown():
