@@ -207,17 +207,24 @@ class ConditionsPanel(wx.Panel):
             file_box = wx.BoxSizer(wx.HORIZONTAL)
             file_box.Add(file_a_box, 0, flag=wx.LEFT | wx.RIGHT, border=20)
             file_box.Add(file_b_box, 0, flag=wx.LEFT | wx.RIGHT, border=20)
-            self.SetSizer(file_box)
+            sizer = wx.BoxSizer(wx.VERTICAL)
+            sizer.Add(file_box)
+            prolog_console_button = wx.Button(self, label="Prolog Console")
+            self.Bind(wx.EVT_BUTTON, self.openConsole, prolog_console_button)
+            sizer.Add(prolog_console_button, flag=wx.CENTER)
+            self.SetSizer(sizer)
         self.Layout()
+
+
+    def openConsole(self, event):
+        prologFrame = PrologFrame()
 
 
 class MyFrame(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, -1, 'File Import and Output', size=(600, 550))
+        wx.Frame.__init__(self, None, -1, 'Compliance System For Software Licenses', size=(600, 550))
 
         # Tempory way to deal with files
-        self.fileA = FileComparison.file_to_string("license_templates/Apache License 2.0.txt")
-        self.fileB = FileComparison.file_to_string("license_templates/MIT License.txt")
 
         self.panel = UploadPanel(self)
         self.similarity_panel = SimilarityPanel(self)
@@ -275,6 +282,39 @@ class MyFrame(wx.Frame):
             return False
         return FileComparison.classify_two_files(file_list[0]["value"], file_list[1]["value"])
 
+
+class PrologFrame(wx.Frame):
+    def __init__(self):
+        wx.Frame.__init__(self, None, -1, 'Prolog Console', size=(400, 350))
+        panel = wx.Panel(self)
+        box = wx.BoxSizer(wx.VERTICAL)
+        self.console = wx.TextCtrl(panel, style=wx.TE_READONLY | wx.TE_MULTILINE, size=(400, 300))
+        query_box = wx.BoxSizer(wx.HORIZONTAL)
+        self.query_text_edit = wx.TextCtrl(panel, style=wx.TE_PROCESS_ENTER, value='Enter Prolog Query Here', size=(400, 50))
+        enter_button = wx.Button(panel, label='Enter')
+
+        self.Bind(wx.EVT_BUTTON, self.query, enter_button)
+        self.Bind(wx.EVT_TEXT_ENTER, self.query, self.query_text_edit)
+
+        box.Add(self.console)
+        query_box.Add(self.query_text_edit, proportion=1)
+        query_box.Add(enter_button)
+        box.Add(query_box)
+        panel.SetSizer(box)
+        self.Show(True)
+
+
+    def query(self, event):
+        print(self.query_text_edit.GetValue())
+        result = FileComparison.query(self.query_text_edit.GetValue())
+        print(result)
+        for value in result:
+            text = ""
+            for key in value.keys():
+                text += key + ": " + value[key] + "\n"
+            text = text[0:len(text)-1] + ";\n"
+            self.console.AppendText(text)
+        self.console.AppendText("\n")
 
 if __name__ == '__main__':
     app = wx.App()
